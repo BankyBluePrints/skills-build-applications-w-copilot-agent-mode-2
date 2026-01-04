@@ -1,7 +1,23 @@
 from djongo import models
 from django.contrib.auth.models import AbstractUser
 
+from django.contrib.auth.models import Group, Permission
+
 class User(AbstractUser):
+    groups = models.ManyToManyField(
+        Group,
+        related_name='octofit_users',
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='octofit_users_permissions',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
     # Additional fields can be added here
     pass
 
